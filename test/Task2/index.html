@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="carousel">
         <div class="carousel-container">
@@ -18,13 +20,10 @@
         <!-- Next and previous button -->
         <button class="carousel-control prev">&#10094;</button>
         <button class="carousel-control next">&#10095;</button>
-        <!-- Indicators to know which image it is -->
-        <div class="carousel-indicators">
-            <span class="indicator active"></span>
-            <span class="indicator"></span>
-            <span class="indicator"></span>
-        </div>
+        <!-- Dynamic Indicators -->
+        <div class="carousel-indicators"></div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const images = document.querySelectorAll('.carousel-image');
@@ -32,7 +31,7 @@
             const nextButton = document.querySelector('.next');
             const prevButton = document.querySelector('.prev');
             const carouselContainer = document.querySelector('.carousel-container');
-            const indicators = document.querySelectorAll('.indicator');
+            const indicatorsContainer = document.querySelector('.carousel-indicators');
 
             let currentIndex = 0;
 
@@ -42,6 +41,18 @@
                     image.src = fallbackImage;
                 };
             });
+
+            // Generate indicators based on the number of images
+            images.forEach((_, index) => {
+                const indicator = document.createElement('span');
+                indicator.classList.add('indicator');
+                if (index === 0) {
+                    indicator.classList.add('active');
+                }
+                indicatorsContainer.appendChild(indicator);
+            });
+
+            const indicators = document.querySelectorAll('.indicator');
 
             // Function to update indicators
             function updateCarousel(index) {
@@ -63,7 +74,7 @@
                 updateCarousel(currentIndex);
             });
 
-            // Indicator code
+            // Indicator click event
             indicators.forEach((indicator, index) => {
                 indicator.addEventListener('click', () => {
                     currentIndex = index;
@@ -74,6 +85,9 @@
             // Initialize the carousel
             updateCarousel(currentIndex);
         });
+
     </script>
 </body>
+
 </html>
+>
